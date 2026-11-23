@@ -3,6 +3,7 @@ package com.adyen.workshop.configurations;
 import com.adyen.Client;
 import com.adyen.Config;
 import com.adyen.enums.Environment;
+import com.adyen.service.checkout.ModificationsApi;
 import com.adyen.service.checkout.PaymentsApi;
 import com.adyen.util.HMACValidator;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,8 @@ public class DependencyInjectionConfiguration {
     Client client() {
         // Step 4
         var config = new Config();
+        config.setApiKey(applicationConfiguration.getAdyenApiKey()); // Api key applied
+        config.setEnvironment(Environment.TEST);
 
         
 
@@ -30,6 +33,11 @@ public class DependencyInjectionConfiguration {
     PaymentsApi paymentsApi(Client client) {
         client.setApplicationName("[adyen-step-by-step-integration-workshop workshop-checkout-example]");
         return new PaymentsApi(client);
+    }
+
+    @Bean
+    ModificationsApi modificationsApi(Client client) {
+        return new ModificationsApi(client);
     }
 
     @Bean

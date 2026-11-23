@@ -32,3 +32,8 @@ replay_pid*
 
 # Mac
 .DS_Store
+# Local Gradle JDK override (machine-specific)
+/gradle.properties
+
+# Node / frontend build
+node_modules/
